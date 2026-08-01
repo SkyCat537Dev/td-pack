@@ -1,0 +1,12 @@
+{
+  "pack": {
+    "description": "TowerDefense Tooltips",
+    "pack_format": 55,
+    "min_format": 42,
+    "max_format": 99,
+    "supported_formats": {
+      "min_inclusive": 42,
+      "max_inclusive": 99
+    }
+  }
+}
