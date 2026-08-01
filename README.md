@@ -1,12 +1,11 @@
 # td-pack
 
-Server-Resourcepack für den TowerDefense-Server. Nur Texturen, kein Plugin-Code.
+Server resource pack for the TowerDefense server. Textures only, no plugin code.
 
-Ändert die Item-Tooltips: ein eigener Rahmen für alle Tooltips, plus je ein
-farbiger Rahmen pro Rarity-Stufe. Die Farben entsprechen 1:1 dem `Rarity`-Enum
-des Plugins.
+It restyles item tooltips: one custom frame for every tooltip, plus a coloured
+frame per rarity tier. The colours match the plugin's `Rarity` enum exactly.
 
-| Stufe | Farbe |
+| Tier | Colour |
 |---|---|
 | Common | `#b0b0b0` |
 | Uncommon | `#55ff55` |
@@ -14,11 +13,11 @@ des Plugins.
 | Epic | `#c86bff` |
 | Legendary | `#ffaa00` |
 | Mythic | `#ff4d4d` |
-| Godly | animiert, `#ff5edb` nach `#ffd24d` nach `#5effc9` |
+| Godly | animated, `#ff5edb` to `#ffd24d` to `#5effc9` |
 
-## Einbinden
+## Usage
 
-Direktlink für `server.properties` bzw. das Hoster-Panel:
+Direct link for `server.properties` or a host panel:
 
 ```
 https://raw.githubusercontent.com/SkyCat537Dev/td-pack/main/resourcepack.zip
@@ -29,14 +28,24 @@ resource-pack=https://raw.githubusercontent.com/SkyCat537Dev/td-pack/main/resour
 resource-pack-sha1=ed876fabbc1591d3b0327294cef78adadbe675d2
 ```
 
-Nach jeder Änderung an den Texturen muss `resourcepack.zip` neu gebaut und der
-SHA1 aktualisiert werden.
+Whenever the textures change, rebuild `resourcepack.zip` and update the SHA1.
+The server hands the client a stale file otherwise and the download is rejected.
 
-## Aufbau
+## Layout
 
-`assets/minecraft/textures/gui/sprites/tooltip/` ist der Standard-Rahmen für
-jeden Tooltip. `assets/towerdefense/textures/gui/sprites/tooltip/` enthält die
-sieben Rarity-Styles, die das Plugin über die `tooltip_style`-Item-Komponente
-anspricht. `resourcepack.zip` ist genau dieser Ordner, gepackt.
+`assets/minecraft/textures/gui/sprites/tooltip/` is the default frame, applied
+to every tooltip in the game. `assets/towerdefense/textures/gui/sprites/tooltip/`
+holds the seven rarity styles, which the plugin selects through the
+`tooltip_style` item component. `resourcepack.zip` is this folder, zipped.
 
-Benötigt Client 1.21.2 oder neuer. Ältere Clients sehen den Vanilla-Tooltip.
+## Building the zip
+
+From the repository root:
+
+```sh
+zip -r resourcepack.zip assets pack.mcmeta pack.png
+sha1sum resourcepack.zip
+```
+
+Requires client 1.21.2 or newer. Older clients fall back to the vanilla tooltip,
+which is a silent no-op rather than an error.
