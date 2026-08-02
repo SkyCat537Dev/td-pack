@@ -1,7 +1,6 @@
 # td-pack
 
-Server resource pack for the TowerDefense server. Textures and one font, no
-plugin code.
+Server resource pack for the TowerDefense server. Textures only, no plugin code.
 
 It restyles item tooltips: one custom frame for every tooltip, plus a coloured
 frame per rarity tier. The colours match the plugin's `Rarity` enum exactly.
@@ -26,7 +25,7 @@ https://raw.githubusercontent.com/SkyCat537Dev/td-pack/main/resourcepack.zip
 
 ```properties
 resource-pack=https://raw.githubusercontent.com/SkyCat537Dev/td-pack/main/resourcepack.zip
-resource-pack-sha1=8f40b55b4f22a9b13a446af1f743166775bbfe5a
+resource-pack-sha1=a0dffcf3155905bd6df22ce66201775496978ed3
 ```
 
 Whenever the textures change, rebuild `resourcepack.zip` and update the SHA1.
@@ -39,26 +38,24 @@ to every tooltip in the game. `assets/towerdefense/textures/gui/sprites/tooltip/
 holds the seven rarity styles, which the plugin selects through the
 `tooltip_style` item component. `resourcepack.zip` is this folder, zipped.
 
-## The small font
+## No fonts here, on purpose
 
-`assets/towerdefense/font/small.json` is the lore font behind the plugin's
-`Settings -> Tooltips` option, at `towerdefense:small`. It pulls the vanilla
-default in whole and redraws only the Latin bitmap on top of it at `height: 7`
-against vanilla's 8, so every glyph that is not plain ASCII, the currency
-symbols and the trait icons among them, still comes from vanilla and is still
-drawn.
+A `towerdefense:small` lore font briefly lived at
+`assets/towerdefense/font/small.json`, to make the plugin's long tooltips fit on
+a screen at a high GUI scale. It is gone and should not come back, for two
+reasons that no amount of tuning fixes.
 
-`height` is the one knob and 7 is deliberately mild: those symbols come from the
-`unihex` provider, which has no height, so they cannot be scaled along with the
-letters and the further this drops the further the two drift apart on one line.
+It cannot make a tooltip shorter. **Minecraft spaces tooltip lines at a fixed
+height whatever font they are drawn in**, so a smaller font is narrower and
+exactly as tall, which was never the complaint.
 
-**This file is not optional once the plugin offers the setting.** Minecraft does
-not fall back to the default font for a font id it cannot find, it builds an
-empty one, and every character then draws as the missing-glyph box. The plugin
-guards its own half by only naming the font for a player who has actually
-applied this pack, but a pack that is applied and does not contain this file is
-exactly the case that guard cannot see. Delete the setting before deleting the
-font.
+And it cannot draw the plugin's own text. The currency symbols, the trait icons
+and the `▰` progress bars all come from the vanilla `unihex` provider, which has
+no height to scale and no place in a redrawn ASCII bitmap, so in practice they
+arrive as missing-glyph boxes and every stat row stops being readable.
+
+The plugin cuts lore lines itself instead (`Settings -> Tooltips`), which needs
+nothing from this pack.
 
 ## Building the zip
 
